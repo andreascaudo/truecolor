@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueColor - Absorbed Light Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>TrueColor <span class="subtitle">Absorbed Light Visualization</span></h1>
+    </header>
+
+    <div class="controls">
+        <button id="start-camera-btn" class="icon-button main-button" aria-label="Start Camera"><i
+                class="fas fa-camera"></i></button>
+        <button id="flip-camera-btn" class="icon-button" aria-label="Switch Camera"><i
+                class="fas fa-camera-rotate"></i></button>
+        <button id="toggle-view-btn" class="icon-button main-button" aria-label="Toggle Absorbed View"><i
+                class="fas fa-eye"></i></button>
+    </div>
+
+    <div class="media-container">
+        <!-- Video element for camera feed -->
+        <video id="video-input" autoplay playsinline></video>
+
+        <!-- Image element for uploaded files -->
+        <img id="image-input" alt="Uploaded Image" />
+
+        <!-- Canvas for displaying the processed output -->
+        <canvas id="output-canvas"></canvas>
+
+        <!-- Placeholder when no media is selected -->
+        <div class="placeholder">
+            <i class="fas fa-camera-retro"></i>
+            <p>Start camera or upload an image</p>
+        </div>
+    </div>
+
+    <div class="bottom-controls">
+        <input type="file" id="upload-image" accept="image/*">
+        <label for="upload-image" class="icon-button main-button" aria-label="Upload Image"><i
+                class="fas fa-upload"></i></label>
+    </div>
+
+    <footer>
+        <p>View through the lens of absorbed colors</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

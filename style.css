@@ -1,0 +1,307 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #212529;
+    line-height: 1.2;
+}
+
+.subtitle {
+    display: block;
+    font-size: 18px;
+    font-weight: normal;
+    color: #6c757d;
+    margin-top: 8px;
+}
+
+.controls {
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    padding: 0;
+    width: 90%;
+}
+
+.bottom-controls {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+}
+
+.media-container {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    border-radius: 16px;
+    background-color: #212529;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    max-width: 95vw;
+    max-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.placeholder i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #e9ecef;
+}
+
+.placeholder p {
+    margin: 0;
+    font-size: 16px;
+    color: #e9ecef;
+}
+
+video,
+img,
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* Initially hide elements */
+#video-input,
+#image-input,
+#output-canvas {
+    display: none;
+}
+
+/* Hide placeholder when media is shown */
+body:not(.show-absorbed) #video-input.active-source~.placeholder,
+body:not(.show-absorbed) #image-input.active-source~.placeholder,
+body.show-absorbed #output-canvas~.placeholder {
+    display: none;
+}
+
+/* Canvas positioning for absorbed view */
+body.show-absorbed #output-canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+/* Hide original sources when absorbed view is shown */
+body.show-absorbed #video-input,
+body.show-absorbed #image-input {
+    display: none;
+}
+
+/* Show active source when original view is shown */
+body:not(.show-absorbed) #video-input.active-source,
+body:not(.show-absorbed) #image-input.active-source {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+/* Style for the upload button */
+input[type="file"] {
+    display: none;
+}
+
+/* Icon button styling */
+.icon-button {
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ff9f43;
+    color: white;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.icon-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.icon-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon-button i {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* Main action buttons (larger, pill-shaped) */
+.main-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.main-button i {
+    font-size: 24px;
+}
+
+/* Button colors */
+#start-camera-btn {
+    background-color: #e74c3c;
+}
+
+#start-camera-btn:hover {
+    background-color: #c0392b;
+}
+
+/* When camera is active, the start button becomes stop */
+#start-camera-btn[aria-label="Stop Camera"] {
+    background-color: #2c3e50;
+}
+
+#start-camera-btn[aria-label="Stop Camera"]:hover {
+    background-color: #1a252f;
+}
+
+#toggle-view-btn {
+    background-color: #6c5ce7;
+}
+
+#toggle-view-btn:hover {
+    background-color: #5b4bc5;
+}
+
+#flip-camera-btn {
+    background-color: #ff9f43;
+}
+
+#flip-camera-btn:hover {
+    background-color: #f39c38;
+}
+
+.bottom-controls .icon-button {
+    background-color: #007bff;
+}
+
+.bottom-controls .icon-button:hover {
+    background-color: #0069d9;
+}
+
+/* For when the eye is showing the original colors */
+body.show-absorbed #toggle-view-btn i {
+    display: inline-block;
+}
+
+footer {
+    margin-top: 24px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    body {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .controls {
+        width: 100%;
+        justify-content: center;
+        padding: 0 8px;
+        gap: 16px;
+    }
+
+    .bottom-controls {
+        width: 100%;
+        margin-top: 20px;
+        padding: 0 8px;
+    }
+
+    .media-container {
+        max-height: 60vh;
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    /* Make camera and canvas fill the container on mobile */
+    #video-input,
+    #output-canvas {
+        object-fit: cover;
+    }
+
+    /* Ensure canvas covers entire space */
+    #output-canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    footer {
+        margin-top: 16px;
+        font-size: 12px;
+    }
+}
